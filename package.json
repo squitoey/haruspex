@@ -1,0 +1,46 @@
+{
+  "name": "@squitoey/haruspex",
+  "version": "1.0.0",
+  "description": "Haruspex is a tool used to watch, observe, or examine the entrails and intestines of a REST API service.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepack": "npm run build",
+    "test": "mocha",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/squitoey/haruspex.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "author": "Dallin Jones",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/squitoey/haruspex/issues"
+  },
+  "homepage": "https://github.com/squitoey/haruspex#readme",
+  "files": [],
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@types/sinon": "^17.0.3",
+    "@types/uuid": "^9.0.7",
+    "babel-polyfill": "^6.3.14",
+    "eslint": "^8.56.0",
+    "chai": "^4.2.0",
+    "mocha": "^10.0.0",
+    "sinon": "^17.0.1",
+    "sinon-chai": "^3.7.0",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "uuid": "^9.0.0"
+  }
+}
