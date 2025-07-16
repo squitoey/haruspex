@@ -107,3 +107,9 @@ dist
 .vscode/settings.json
 
 .idea/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
