@@ -10,28 +10,43 @@ function toString<T extends Constructor>(BaseClass: T) {
 
 function findById(value: Record<string, any> | any) {
   return (target?: unknown, propertyKey?: string, descriptor?: PropertyDescriptor) => {
-    console.log('params: ', value, 'ARGS: ',  ...arguments, target, propertyKey, descriptor);
+    const objectId: string | null = typeof value === 'string' ? value : value?.id || null;
+
+    // console.log('params: ', value, 'ARGS: ', ...arguments, target, propertyKey, descriptor);
+
+
+    // console.log('target: ', target);
+    // console.log('propertyKey: ', propertyKey);
+    console.log('descriptor: ', descriptor);
+    // console.log('objectId: ', objectId);
+    // if (this.propertyKey) {
+    //   this[propertyKey] = value;
+    // }
+    if (descriptor?.value) {
+    const originalMethod = descriptor.value;
+
+      descriptor.value = function (...args: unknown[]) {
+        const result = `${objectId} ---> ${originalMethod.apply(this, ...args)}`;
+        return result;
+      }
+    }
+
+    return descriptor;
   }
-  if (this.propertyKey) {
-    this[propertyKey] = value;
-  }
-  // const original = descriptor.value;
-  //
-  // descriptor.value = function (...args: unknown[]) {
-  //   console.log('params: ', ...args);
-  //   const result = original.call(this, ...args);
-  //   console.log('result: ', result);
-  //   return result;
-  // }
 }
 
 @toString
 class C {
-  @findById({id: "element-id", link: 'test'})
-  public foo = "foo";
+  // @findById({id: "element-id", link: 'test', replace: 'value'})
+  public foo: string = "foo";
 
-  @findById("element-id-num")
+  // @findById("element-id-num")
   public num = 24;
+
+  @findById({id: "do-something-id", link: '??', replace: 'value'})
+  doSomething() {
+    return 'doSomething';
+  }
 }
 
 const val = new C();
@@ -42,24 +57,4 @@ console.log(val.toString())
 val.foo = "bar";
 console.log(val.toString());
 
-
-// function findById(value: string) {
-//   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-//     descriptor.set(value);
-//   };
-// }
-//
-//
-// export class LoginPage {
-//   @findBy("elementId")
-//   private element: any;
-//
-//   public navigate() {
-//     console.log("navigate", this.element);
-//   }
-// }
-//
-//
-// const loginPage = new LoginPage();
-//
-// loginPage.navigate();
+console.log('call val.doSomething', val.doSomething());
